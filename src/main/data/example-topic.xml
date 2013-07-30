@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to Jasig under one or more contributor license
+    agreements. See the NOTICE file distributed with this work
+    for additional information regarding copyright ownership.
+    Jasig licenses this file to you under the Apache License,
+    Version 2.0 (the "License"); you may not use this file
+    except in compliance with the License. You may obtain a
+    copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on
+    an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied. See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<!-- For some reason I can't put this as an attribute in topic.  When it is present, the XML is not parsed or read
+     and no error message occurs.  You only get an empty Topic record.
+     xmlns="http://www.uPortal.org/schema/announcement/topic.xsd"
+-->
+<topic xmlns:tpi="http://www.uPortal.org/schema/announcement/topic"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.uPortal.org/schema/announcement/topic http://www.uPortal.org/schema/announcement/topic.xsd">
+    <title>Academic Notices</title>
+    <description>Notices to all students, faculty, and staff</description>
+    <allowRss>true</allowRss>
+    <subscriptionMethod>2</subscriptionMethod>
+    <announcements>
+        <announcement>
+            <title>My First Announcement</title>
+            <abstract>This is my first announcement imported into the portal!</abstract>
+            <message><![CDATA[
+                    <p>This is the first paragraph of the message</p>
+                    <p><b>This paragraph is bolded!</b></p>
+            ]]></message>
+            <startDisplay>2013-06-01</startDisplay>
+            <endDisplay>2013-07-31</endDisplay>
+            <published>true</published>
+        </announcement>
+    </announcements>
+</topic>

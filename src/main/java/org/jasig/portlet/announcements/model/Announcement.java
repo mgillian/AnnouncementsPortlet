@@ -18,6 +18,9 @@
  */
 package org.jasig.portlet.announcements.model;
 
+import org.jasig.portlet.announcements.xml.Namespaces;
+
+import java.beans.Transient;
 import java.util.Date;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
@@ -25,13 +28,15 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * @author Erik A. Olsson (eolsson@uci.edu)
  *
- * $LastChangedBy$
- * $LastChangedDate$
  */
+@XmlType(namespace = Namespaces.ANNOUNCEMENT_NAMESPACE,
+        propOrder = {"startDisplay", "endDisplay", "title", "abstractText", "message", "link", "published",
+                "created", "author", "parent", "attachments"})
 @XmlRootElement(name="announcement")
 public class Announcement implements Comparable<Announcement> {
 
@@ -102,7 +107,7 @@ public class Announcement implements Comparable<Announcement> {
 	/**
 	 * @return the parent
 	 */
-    @XmlTransient
+    @XmlElement(name="parent")
 	public Topic getParent() {
 		return parent;
 	}
@@ -117,7 +122,7 @@ public class Announcement implements Comparable<Announcement> {
 	/**
 	 * @return the title
 	 */
-    @XmlElement(name="title")
+    @XmlElement(name="title", required=true)
 	public String getTitle() {
 		return title;
 	}
@@ -132,14 +137,14 @@ public class Announcement implements Comparable<Announcement> {
 	/**
 	 * @return the startDisplay
 	 */
-    @XmlElement(name="startDisplay")
+    @XmlElement(name="startDisplay", required=true)
 	public Date getStartDisplay() {
 		return startDisplay;
 	}
 	/**
 	 * @return the endDisplay
 	 */
-    @XmlElement(name="endDisplay")
+    @XmlElement(name="endDisplay", required=true)
 	public Date getEndDisplay() {
 	    return endDisplay;
 	}
@@ -155,7 +160,7 @@ public class Announcement implements Comparable<Announcement> {
 	/**
 	 * @return the message
 	 */
-    @XmlElement(name="message")
+    @XmlElement(name="message",required=true)
 	public String getMessage() {
 		return message;
 	}
@@ -167,7 +172,7 @@ public class Announcement implements Comparable<Announcement> {
 	}
 
 	/**
-	 * @param published the published to set
+	 * @param created date created
 	 */
 	public void setCreated(Date created) {
 		this.created = created;
@@ -193,14 +198,14 @@ public class Announcement implements Comparable<Announcement> {
 	/**
 	 * @return the abstractText
 	 */
-    @XmlElement(name="abstract")
+    @XmlElement(name="abstract", required=true)
 	public String getAbstractText() {
 		return abstractText;
 	}
 	/**
 	 * @return the author
 	 */
-    @XmlElement(name="author")
+    @XmlElement(name="author", defaultValue = "system")
 	public String getAuthor() {
 		return author;
 	}

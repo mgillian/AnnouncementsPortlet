@@ -29,6 +29,7 @@ import javax.portlet.RenderRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jasig.portlet.announcements.model.AnnouncementFilterType;
 import org.jasig.portlet.announcements.model.Topic;
 import org.jasig.portlet.announcements.model.TopicSubscription;
 

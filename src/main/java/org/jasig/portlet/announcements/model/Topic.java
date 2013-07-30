@@ -29,8 +29,10 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import org.apache.log4j.Logger;
-import org.jasig.portlet.announcements.service.UserPermissionChecker;
+import org.jasig.portlet.announcements.xml.Namespaces;
 
 /**
  * @author Erik A. Olsson (eolsson@uci.edu)
@@ -38,6 +40,7 @@ import org.jasig.portlet.announcements.service.UserPermissionChecker;
  * $LastChangedBy$
  * $LastChangedDate$
  */
+@XmlType(namespace = Namespaces.TOPIC_NAMESPACE)
 @XmlRootElement(name="topic")
 public class Topic {
 													/* Announcements for this topic are... */
@@ -74,32 +77,32 @@ public class Topic {
 
 
 	public Set<String> getGroup(String key) {
-		if (UserPermissionChecker.ADMIN_ROLE_NAME.equals(key)) {
+		if (UserRoles.ADMIN_ROLE_NAME.equals(key)) {
 			return getAdmins();
 		}
-		else if (UserPermissionChecker.MODERATOR_ROLE_NAME.equals(key)) {
+		else if (UserRoles.MODERATOR_ROLE_NAME.equals(key)) {
 			return getModerators();
 		}
-        else if (UserPermissionChecker.AUTHOR_ROLE_NAME.equals(key)) {
+        else if (UserRoles.AUTHOR_ROLE_NAME.equals(key)) {
             return getAuthors();
         }
-        else if (UserPermissionChecker.AUDIENCE_ROLE_NAME.equals(key)) {
+        else if (UserRoles.AUDIENCE_ROLE_NAME.equals(key)) {
             return getAudience();
         }
 		throw new RuntimeException("Role not found:  " + key);
 	}
 
 	public void setGroup(String key, Set<String> members) {
-        if (UserPermissionChecker.ADMIN_ROLE_NAME.equals(key)) {
+        if (UserRoles.ADMIN_ROLE_NAME.equals(key)) {
             setAdmins(members);
         }
-        else if (UserPermissionChecker.MODERATOR_ROLE_NAME.equals(key)) {
+        else if (UserRoles.MODERATOR_ROLE_NAME.equals(key)) {
             setModerators(members);
         }
-        else if (UserPermissionChecker.AUTHOR_ROLE_NAME.equals(key)) {
+        else if (UserRoles.AUTHOR_ROLE_NAME.equals(key)) {
             setAuthors(members);
         }
-        else if (UserPermissionChecker.AUDIENCE_ROLE_NAME.equals(key)) {
+        else if (UserRoles.AUDIENCE_ROLE_NAME.equals(key)) {
             setAudience(members);
         } else {
             throw new RuntimeException("Role not found:  " + key);
@@ -120,14 +123,14 @@ public class Topic {
 	/**
 	 * @return the creator
 	 */
-    @XmlElement(name="creator")
+    @XmlElement(name="creator", defaultValue = "system")
 	public String getCreator() {
 		return creator;
 	}
 	/**
 	 * @return the title
 	 */
-    @XmlElement(name="title")
+    @XmlElement(name="title", required=true)
 	public String getTitle() {
 		return title;
 	}
@@ -413,7 +416,7 @@ public class Topic {
 	/**
 	 * @return the subscriptionMethod
 	 */
-    @XmlElement(name="subscriptionMethod")
+    @XmlElement(name="subscriptionMethod", required=true)
 	public int getSubscriptionMethod() {
 		return subscriptionMethod;
 	}
