@@ -156,6 +156,12 @@
             <artifactId>spring-webmvc-portlet</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -249,7 +255,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.2</version>
+            <version>4.11</version>
             <scope>test</scope>
         </dependency>
 
@@ -283,6 +289,17 @@
 
     <build>
         <finalName>${pom.artifactId}</finalName>
+        <!-- textResources makes context files available to Spring integration tests -->
+        <testResources>
+            <testResource>
+                <directory>src/main/webapp/WEB-INF</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>

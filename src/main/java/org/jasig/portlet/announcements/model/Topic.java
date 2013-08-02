@@ -220,7 +220,7 @@ public class Topic {
                     long aYearFromNow = System.currentTimeMillis() + Announcement.MILLISECONDS_IN_A_YEAR;
                     endDisplay = new Date(aYearFromNow);
                 }
-                if (ann.isPublished() && startDisplay.before(now) && endDisplay.after(now) ) {
+                if (ann.getPublished() && startDisplay.before(now) && endDisplay.after(now) ) {
                     announcementsFiltered.add(ann);
                 }
 			}
@@ -302,7 +302,7 @@ public class Topic {
 		Date now = new Date();
 		if (this.announcements != null) {
 			for (Announcement ann: this.announcements) {
-				if (ann.isPublished() &&
+				if (ann.getPublished() &&
 						ann.getStartDisplay().after(now)) {
 					count++;
 				}
@@ -317,7 +317,7 @@ public class Topic {
         Date now = new Date();
         if (this.announcements != null) {
             for (Announcement ann : this.announcements) {
-                if (!ann.isPublished() && ann.getNullSafeEndDisplay().after(now) ) {
+                if (!ann.getPublished() && ann.getNullSafeEndDisplay().after(now) ) {
                     announcementsFiltered.add(ann);
                 }
             }
@@ -334,7 +334,7 @@ public class Topic {
 		int count = 0;
 		if (this.announcements != null) {
 			for (Announcement ann: this.announcements) {
-				if (!ann.isPublished()) {
+				if (!ann.getPublished()) {
 					count++;
 				}
 			}

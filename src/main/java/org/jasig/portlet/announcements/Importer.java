@@ -33,8 +33,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 import org.jasig.portlet.announcements.model.Announcement;
 import org.jasig.portlet.announcements.model.Topic;
 import org.jasig.portlet.announcements.service.IAnnouncementService;
@@ -58,6 +56,18 @@ public class Importer {
         this.announcementService = announcementService;
     }
 
+    public void setDir(String dir) {
+    	this.dir = dir;
+    }
+    
+    public void setSessionFactory(SessionFactory sessionFactory) {
+    	this.sessionFactory = sessionFactory;
+    }
+    
+    public void setAnnouncementService(IAnnouncementService announcementService) {
+    	this.announcementService = announcementService;
+    }
+    
     /**
      * Imports topics and announcements into the database.
      * arg0 - directory containing the files
@@ -87,7 +97,7 @@ public class Importer {
         }
     }
 
-    private void importData() {
+    public void importData() {
         importTopics();
         importAnnouncements();
     }
@@ -111,10 +121,7 @@ public class Importer {
                         log.error(msg);
                         errors.add(msg);
                     } else {
-                        Session session = sessionFactory.getCurrentSession();
-                        Transaction transaction = session.beginTransaction();
                         announcementService.addOrSaveTopic(topic);
-                        transaction.commit();
                         log.info("Successfully imported topic '" + topic.getTitle() + "'");
                     }
                 } catch (JAXBException e) {
@@ -158,13 +165,9 @@ public class Importer {
                         errors.add(msg);
                     } else {
                         String topicTitle = announcement.getParent().getTitle();
-
-                        Session session = sessionFactory.getCurrentSession();
-                        Transaction transaction = session.beginTransaction();
                         Topic topic = findTopicForAnnouncement(announcement);
                         announcement.setParent(topic);
                         announcementService.addOrSaveAnnouncement(announcement);
-                        transaction.commit();
                         log.info("Successfully imported announcement '" + announcement.getTitle() + "'");
                     }
                 } catch (ImportException e) {

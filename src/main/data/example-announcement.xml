@@ -35,10 +35,10 @@
     <abstract>Announcement message imported that references an existing topic</abstract>
     <message>This is a simple announcement message.  The message is not very complex.</message>
     <published>true</published>
-    <topic>
+    <parent>
         <title>Academic Notices</title>
         <description>Notices to all students, faculty, and staff</description>
         <allowRss>true</allowRss>
         <subscriptionMethod>2</subscriptionMethod>
-    </topic>
+    </parent>
 </announcement>

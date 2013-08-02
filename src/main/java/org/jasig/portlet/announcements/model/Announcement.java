@@ -20,7 +20,6 @@ package org.jasig.portlet.announcements.model;
 
 import org.jasig.portlet.announcements.xml.Namespaces;
 
-import java.beans.Transient;
 import java.util.Date;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
@@ -65,17 +64,9 @@ public class Announcement implements Comparable<Announcement> {
 	/**
 	 * @return the published
 	 */
-    @XmlTransient
-	public Boolean isPublished() {
-		return published;
-	}
-
-	/**
-	 * @return the published
-	 */
     @XmlElement(name="published")
 	public Boolean getPublished() {
-		return isPublished();
+		return published;
 	}
 
 	/**
